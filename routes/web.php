@@ -2,10 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Http\Request;
+use App\Models\Score;
 
 Route::get('/', function () {
+    $scores = Score::latest()->get();
     $timerEnd = env('TIMER_END', '2025-01-01');
-    return view('welcome', compact('timerEnd'));
+    return view('welcome', compact('timerEnd','scores'));
 });
 
 
@@ -106,3 +109,16 @@ Route::post('/woods/check', function (\Illuminate\Http\Request $request) {
 
     return back()->with('message', 'Formula errata. Riprova.');
 })->name('woods.check');
+
+Route::post('/woods/save', function (Request $request) {
+    $request->validate([
+        'name' => 'required|string|max:255',
+    ]);
+
+    Score::create([
+        'name' => $request->input('name'),
+    ]);
+
+    session()->flash('message', 'Il tuo nome è stato salvato nella classifica!');
+    return redirect()->route('woods');
+})->name('woods.save');

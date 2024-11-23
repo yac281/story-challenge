@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Woods</title>
-    <!-- Bootstrap CSS (facoltativo) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -29,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <!-- Form di inserimento risposte -->
+
         <form action="{{ route('woods.check') }}" method="POST">
             @csrf
             <label for="formula">Formula Finale:</label><br>
@@ -44,6 +43,18 @@
             <p style="color: {{ session('message') === 'Formula errata. Riprova.' ? 'red' : 'green' }}; margin-top: 10px; font-size: 16px;">
                 {{ session('message') }}
             </p>
+        @endif
+
+        @if(session('message') === 'Hai scacciato il male antico, hai vinto!!!!')
+            <p style="margin-top: 20px; font-size: 16px;">Inserisci il tuo nome per la classifica:</p>
+            <form action="{{ route('woods.save') }}" method="POST">
+                @csrf
+                <label for="name">Il tuo nome:</label><br>
+                <input type="text" name="name" id="name" required style="padding: 5px; font-size: 16px; margin: 10px 0;">
+                <button type="submit" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px;">
+                    Salva
+                </button>
+            </form>
         @endif
     </div>
 </body>

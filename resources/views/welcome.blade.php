@@ -36,6 +36,28 @@
         </div>
     </div>
 
+    <div class="container mt-5">
+        <h3 class="text-center">Classifica</h3>
+        <table class="table table-striped table-bordered mt-3">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($scores as $index => $score)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $score->name }}</td>
+                        <td>{{ $score->created_at->format('d/m/Y H:i') }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
     <!-- Bootstrap JS (facoltativo) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
